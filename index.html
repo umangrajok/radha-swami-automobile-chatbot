@@ -33,16 +33,34 @@
   .typ span:nth-child(3){animation-delay:0.4s;}
   @keyframes bl{0%,80%,100%{opacity:0.3}40%{opacity:1}}
   #footer{text-align:center;padding:8px;font-size:10px;color:#aaa;background:#fff;border-top:1px solid #F0F0F0;}
+
+  body.dark{background:#1a1a2e;}
+  body.dark #wrap{background:#16213e;}
+  body.dark #msgs{background:#0f3460;}
+  body.dark .bot{background:#1a1a2e;color:#fff;border-color:#444;}
+  body.dark #tabs,body.dark #qbtns,body.dark #inrow,body.dark #footer{background:#16213e;}
+  body.dark .tab{color:#aaa;}
+  body.dark .tab.active{color:#90CAF9;}
+  body.dark #inp{background:#0f3460;color:#fff;border-color:#444;}
+  body.dark .qb{color:#90CAF9;border-color:#90CAF9;}
+  body.dark .qb:hover{background:#0f3460;}
+  body.dark #footer{color:#777;}
 </style>
 </head>
 <body>
 <div id="wrap">
   <div id="hdr">
     <img src="tata-motors-logo.svg" style="width:42px;height:42px;border-radius:50%;background:#fff;object-fit:contain;padding:4px;flex-shrink:0;"/>
-    <div>
+    <div style="flex:1;">
       <div class="nm">Radha Swami Automobiles</div>
       <div class="st">Tata Authorised Service — AI Assistant | Begusarai ⭐ 4.5</div>
     </div>
+    <button onclick="toggleDark()" id="dmBtn" style="background:rgba(255,255,255,0.2);border:none;border-radius:50%;width:34px;height:34px;cursor:pointer;font-size:16px;flex-shrink:0;">🌙</button>
+  </div>
+  <div style="display:flex;gap:8px;padding:10px 13px;background:#1565C0;border-top:1px solid rgba(255,255,255,0.2);">
+    <a href="tel:08406954050" style="flex:1;background:#fff;color:#1565C0;text-align:center;padding:8px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;">📞 Call Now</a>
+    <a href="https://maps.google.com/?q=C2WJ+MX6,+Begusarai,+Bihar+851115" target="_blank" style="flex:1;background:rgba(255,255,255,0.15);color:#fff;text-align:center;padding:8px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;border:1px solid rgba(255,255,255,0.4);">🗺️ Directions</a>
+    <a href="https://www.facebook.com/radha.swami.52206654" target="_blank" style="flex:1;background:#1877F2;color:#fff;text-align:center;padding:8px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;">👍 Facebook</a>
   </div>
   <div id="msgs">
     <div class="msg bot">Namaste! 🙏 Radha Swami Automobiles mein aapka swagat hai!
@@ -50,7 +68,7 @@
 Main aapki madad kar sakta hoon:
 • Tata vehicle service booking
 • Spare parts availability
-• Vehicle information (BS4–BS6)
+• Vehicle information (Tata Commercial)
 • Location & contact
 
 Kya jaanna chahte hain?</div>
@@ -79,36 +97,36 @@ const TABS = {
 
 const VEHICLES = {
   scv:[
-    {name:"Tata Ace Gold",payload:"750 kg",engine:"0.7L Diesel/Petrol",bs:"BS6"},
-    {name:"Tata Ace Pro",payload:"750 kg",engine:"Petrol",bs:"BS6"},
-    {name:"Tata Ace EV",payload:"750 kg",engine:"Electric",bs:"EV"},
-    {name:"Tata Intra V10",payload:"1T",engine:"Diesel",bs:"BS6"},
-    {name:"Tata Intra V30",payload:"1.5T",engine:"Diesel",bs:"BS6"},
-    {name:"Tata Intra V50",payload:"2T",engine:"Diesel",bs:"BS6"},
+    {name:"Tata Ace Gold",payload:"750 kg",engine:"0.7L Diesel/Petrol"},
+    {name:"Tata Ace Pro",payload:"750 kg",engine:"Petrol"},
+    {name:"Tata Ace EV",payload:"750 kg",engine:"Electric"},
+    {name:"Tata Intra V10",payload:"1T",engine:"Diesel"},
+    {name:"Tata Intra V30",payload:"1.5T",engine:"Diesel"},
+    {name:"Tata Intra V50",payload:"2T",engine:"Diesel"},
   ],
   pickup:[
-    {name:"Tata Yodha 1700",payload:"1T",engine:"Diesel",bs:"BS6"},
-    {name:"Tata Yodha 2.0",payload:"1.5T",engine:"Diesel/CNG",bs:"BS6"},
-    {name:"Tata Xenon",payload:"1T",engine:"Diesel",bs:"BS4"},
+    {name:"Tata Yodha 1700",payload:"1T",engine:"Diesel"},
+    {name:"Tata Yodha 2.0",payload:"1.5T",engine:"Diesel/CNG"},
+    {name:"Tata Xenon",payload:"1T",engine:"Diesel"},
   ],
   lcv:[
-    {name:"Tata 407 Gold",payload:"2.5T",engine:"Diesel",bs:"BS6"},
-    {name:"Tata 407 Gold CNG",payload:"2.5T",engine:"CNG",bs:"BS6"},
-    {name:"Tata Ultra 814",payload:"5T",engine:"Diesel",bs:"BS6"},
-    {name:"Tata Ultra 912",payload:"7T",engine:"Diesel",bs:"BS6"},
+    {name:"Tata 407 Gold",payload:"2.5T",engine:"Diesel"},
+    {name:"Tata 407 Gold CNG",payload:"2.5T",engine:"CNG"},
+    {name:"Tata Ultra 814",payload:"5T",engine:"Diesel"},
+    {name:"Tata Ultra 912",payload:"7T",engine:"Diesel"},
   ],
   mhcv:[
-    {name:"Tata LPT 1412",payload:"8.3T",engine:"Diesel",bs:"BS6"},
-    {name:"Tata LPT 1918",payload:"14T",engine:"Diesel",bs:"BS6"},
-    {name:"Tata LPT 2518",payload:"16T",engine:"Diesel",bs:"BS6"},
-    {name:"Tata Signa 2823",payload:"19T",engine:"Diesel",bs:"BS6"},
-    {name:"Tata Signa 3518",payload:"25T",engine:"Diesel",bs:"BS6"},
-    {name:"Tata Prima 4028.S",payload:"25T+",engine:"Diesel",bs:"BS6"},
+    {name:"Tata LPT 1412",payload:"8.3T",engine:"Diesel"},
+    {name:"Tata LPT 1918",payload:"14T",engine:"Diesel"},
+    {name:"Tata LPT 2518",payload:"16T",engine:"Diesel"},
+    {name:"Tata Signa 2823",payload:"19T",engine:"Diesel"},
+    {name:"Tata Signa 3518",payload:"25T",engine:"Diesel"},
+    {name:"Tata Prima 4028.S",payload:"25T+",engine:"Diesel"},
   ],
   tipper:[
-    {name:"Tata Signa 2825.TK",payload:"15T",engine:"Diesel",bs:"BS6"},
-    {name:"Tata Prima 2530.K",payload:"20T",engine:"Diesel",bs:"BS6"},
-    {name:"Tata Prima E.28K",payload:"28T",engine:"Electric",bs:"EV"},
+    {name:"Tata Signa 2825.TK",payload:"15T",engine:"Diesel"},
+    {name:"Tata Prima 2530.K",payload:"20T",engine:"Diesel"},
+    {name:"Tata Prima E.28K",payload:"28T",engine:"Electric"},
   ]
 };
 
@@ -205,7 +223,7 @@ Hamari team aapko best deal degi! 😊`;
     return r;
   }
   if(m.includes('bs6') || m.includes('vehicle') || m.includes('gaadi')){
-    return `Hum in Tata vehicles ki service karte hain:\n\n📦 SCV/Mini — Ace, Intra series\n🚐 Pickup — Yodha series\n🚛 LCV — 407, Ultra series\n💪 M&HCV — Signa, Prima series\n🏗️ Tipper — Signa, Prima\n\nSab BS4 & BS6 vehicles! Kisi bhi vehicle ke baare mein poochein.`;
+    return `Hum in Tata vehicles ki service karte hain:\n\n📦 SCV/Mini — Ace, Intra series\n🚐 Pickup — Yodha series\n🚛 LCV — 407, Ultra series\n💪 M&HCV — Signa, Prima series\n🏗️ Tipper — Signa, Prima\n\nKisi bhi vehicle ke baare mein poochein.`;
   }
   if(m.includes('location') || m.includes('address') || m.includes('kahan')){
     return `📍 Hamara address:\nC2WJ+MX6, Begusarai\nBihar 851115\n\nBegusarai mein Tata ka sabse bharosemand service center!`;
@@ -268,6 +286,10 @@ function send(){
   setTimeout(()=>{ removeTyping(); addMsg(getBotReply(text),'bot'); },900);
 }
 setTab('service', document.querySelector('.tab'));
+function toggleDark(){
+  document.body.classList.toggle('dark');
+  document.getElementById('dmBtn').textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+}
 </script>
 </body>
 </html>
