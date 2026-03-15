@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Radha Swami Automobiles — Tata Authorised Service</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:Arial,sans-serif;background:#E3F2FD;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:10px;}
+  #wrap{width:100%;max-width:420px;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.15);background:#fff;}
+  #hdr{background:#1565C0;padding:14px 16px;display:flex;align-items:center;gap:12px;}
+  #hdr .av{width:42px;height:42px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#1565C0;flex-shrink:0;}
+  #hdr .nm{color:#fff;font-weight:700;font-size:15px;}
+  #hdr .st{color:#90CAF9;font-size:11px;margin-top:2px;}
+  #msgs{height:360px;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;background:#F5F5F5;}
+  .msg{max-width:85%;padding:10px 14px;border-radius:18px;font-size:13.5px;line-height:1.6;white-space:pre-wrap;}
+  .bot{background:#fff;color:#222;border:1px solid #E0E0E0;border-bottom-left-radius:4px;align-self:flex-start;box-shadow:0 1px 3px rgba(0,0,0,0.08);}
+  .usr{background:#1565C0;color:#fff;border-bottom-right-radius:4px;align-self:flex-end;}
+  #tabs{display:flex;border-top:1px solid #E0E0E0;background:#fff;}
+  .tab{flex:1;padding:9px 4px;font-size:12px;text-align:center;cursor:pointer;color:#888;border-bottom:2px solid transparent;}
+  .tab.active{color:#1565C0;border-bottom:2px solid #1565C0;font-weight:700;}
+  #qbtns{display:flex;flex-wrap:wrap;gap:6px;padding:10px 13px;border-top:1px solid #F0F0F0;background:#fff;min-height:54px;}
+  .qb{font-size:11.5px;padding:5px 10px;border:1px solid #1565C0;border-radius:20px;color:#1565C0;background:#fff;cursor:pointer;}
+  .qb:hover{background:#E3F2FD;}
+  #inrow{display:flex;gap:8px;padding:10px 13px;border-top:1px solid #E0E0E0;background:#fff;}
+  #inp{flex:1;border:1px solid #BDBDBD;border-radius:22px;padding:9px 15px;font-size:13px;outline:none;background:#FAFAFA;}
+  #inp:focus{border-color:#1565C0;}
+  #sbtn{background:#1565C0;color:#fff;border:none;border-radius:50%;width:38px;height:38px;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  #sbtn:hover{background:#0D47A1;}
+  .typ{display:flex;gap:4px;align-items:center;padding:10px 14px;}
+  .typ span{width:7px;height:7px;border-radius:50%;background:#BDBDBD;animation:bl 1.2s infinite;}
+  .typ span:nth-child(2){animation-delay:0.2s;}
+  .typ span:nth-child(3){animation-delay:0.4s;}
+  @keyframes bl{0%,80%,100%{opacity:0.3}40%{opacity:1}}
+  #footer{text-align:center;padding:8px;font-size:10px;color:#aaa;background:#fff;border-top:1px solid #F0F0F0;}
+</style>
+</head>
+<body>
+<div id="wrap">
+  <div id="hdr">
+    <div class="av">RS</div>
+    <div>
+      <div class="nm">Radha Swami Automobiles</div>
+      <div class="st">Tata Authorised Service Station — Begusarai ⭐ 4.5</div>
+    </div>
+  </div>
+  <div id="msgs">
+    <div class="msg bot">Namaste! 🙏 Radha Swami Automobiles mein aapka swagat hai!
+
+Main aapki madad kar sakta hoon:
+• Tata vehicle service booking
+• Spare parts availability
+• Vehicle information (BS4–BS6)
+• Location & contact
+
+Kya jaanna chahte hain?</div>
+  </div>
+  <div id="tabs">
+    <div class="tab active" onclick="setTab('service',this)">🔧 Service</div>
+    <div class="tab" onclick="setTab('vehicle',this)">🚛 Vehicles</div>
+    <div class="tab" onclick="setTab('parts',this)">⚙️ Parts</div>
+    <div class="tab" onclick="setTab('info',this)">📍 Info</div>
+  </div>
+  <div id="qbtns"></div>
+  <div id="inrow">
+    <input id="inp" type="text" placeholder="Apna sawaal likhein..." onkeydown="if(event.key==='Enter')send()"/>
+    <button id="sbtn" onclick="send()">&#10148;</button>
+  </div>
+  <div id="footer">Powered by AI • Radha Swami Automobiles © 2025</div>
+</div>
+
+<script>
+const TABS = {
+  service:['Service booking karni hai','Oil change chahiye','AC service karni hai','Engine checkup','Brake service','Kitna time lagega','Charges kitne hain'],
+  vehicle:['Tata Ace ki jankari','Tata 407 series','Tata Prima truck','Tata Signa series','BS6 vehicles kaunse hain','Tipper vehicles'],
+  parts:['Oil filter available hai','Brake pad chahiye','Air filter hai kya','Spare parts price','Genuine parts hain kya','Parts order karna hai'],
+  info:['Location kahan hai','Contact number chahiye','Timing kya hai','Rating kya hai','Tata authorised hain kya','Emergency service']
+};
+
+const VEHICLES = {
+  scv:[
+    {name:"Tata Ace Gold",payload:"750 kg",engine:"0.7L Diesel/Petrol",bs:"BS6",price:"₹3.50L+"},
+    {name:"Tata Ace Pro",payload:"750 kg",engine:"Petrol",bs:"BS6",price:"₹3.99L+"},
+    {name:"Tata Ace EV",payload:"750 kg",engine:"Electric",bs:"EV",price:"₹10L+"},
+    {name:"Tata Intra V10",payload:"1T",engine:"Diesel",bs:"BS6",price:"₹6.71L+"},
+    {name:"Tata Intra V30",payload:"1.5T",engine:"Diesel",bs:"BS6",price:"₹7.50L+"},
+    {name:"Tata Intra V50",payload:"2T",engine:"Diesel",bs:"BS6",price:"₹8.50L+"},
+  ],
+  pickup:[
+    {name:"Tata Yodha 1700",payload:"1T",engine:"Diesel",bs:"BS6",price:"₹10.04L+"},
+    {name:"Tata Yodha 2.0",payload:"1.5T",engine:"Diesel/CNG",bs:"BS6",price:"₹11L+"},
+    {name:"Tata Xenon",payload:"1T",engine:"Diesel",bs:"BS4",price:"Older model"},
+  ],
+  lcv:[
+    {name:"Tata 407 Gold",payload:"2.5T",engine:"Diesel",bs:"BS6",price:"₹10.14L+"},
+    {name:"Tata 407 Gold CNG",payload:"2.5T",engine:"CNG",bs:"BS6",price:"₹11L+"},
+    {name:"Tata Ultra 814",payload:"5T",engine:"Diesel",bs:"BS6",price:"₹15L+"},
+    {name:"Tata Ultra 912",payload:"7T",engine:"Diesel",bs:"BS6",price:"₹18L+"},
+  ],
+  mhcv:[
+    {name:"Tata LPT 1412",payload:"8.3T",engine:"Diesel",bs:"BS6"},
+    {name:"Tata LPT 1918",payload:"14T",engine:"Diesel",bs:"BS6"},
+    {name:"Tata LPT 2518",payload:"16T",engine:"Diesel",bs:"BS6"},
+    {name:"Tata Signa 2823",payload:"19T",engine:"Diesel",bs:"BS6"},
+    {name:"Tata Signa 3518",payload:"25T",engine:"Diesel",bs:"BS6"},
+    {name:"Tata Prima 4028.S",payload:"25T+",engine:"Diesel",bs:"BS6"},
+  ],
+  tipper:[
+    {name:"Tata Signa 2825.TK",payload:"15T",engine:"Diesel",bs:"BS6"},
+    {name:"Tata Prima 2530.K",payload:"20T",engine:"Diesel",bs:"BS6"},
+    {name:"Tata Prima E.28K",payload:"28T",engine:"Electric",bs:"EV"},
+  ]
+};
+
+const PARTS = [
+  {name:"Oil Filter",vehicles:"Ace, Intra, 407",qty:15,price:"₹450"},
+  {name:"Air Filter",vehicles:"407, Ultra, Signa",qty:8,price:"₹650"},
+  {name:"Brake Pad Set",vehicles:"Ace, Intra, Yodha",qty:12,price:"₹1,200"},
+  {name:"Clutch Plate",vehicles:"407, Ultra",qty:5,price:"₹3,500"},
+  {name:"Engine Oil 15W40 (5L)",vehicles:"All Diesel",qty:20,price:"₹1,100"},
+  {name:"Coolant",vehicles:"All vehicles",qty:18,price:"₹350"},
+  {name:"Fuel Filter",vehicles:"All Diesel",qty:10,price:"₹550"},
+  {name:"Wiper Blade",vehicles:"All vehicles",qty:25,price:"₹280"},
+  {name:"Battery 12V",vehicles:"All vehicles",qty:6,price:"₹5,500"},
+  {name:"Shock Absorber",vehicles:"Ace, Intra",qty:8,price:"₹2,200"},
+];
+
+function getBotReply(msg){
+  const m=msg.toLowerCase();
+  if(m.includes('oil filter')||m.includes('oil change')||m.includes('tel')){
+    const p=PARTS.find(x=>x.name.toLowerCase().includes('oil filter'));
+    return `✅ Oil Filter available hai!\n\nPart: ${p.name}\nVehicles: ${p.vehicles}\nStock: ${p.qty} pcs\nPrice: ${p.price}\n\nBooking: 📞 084069 54050`;
+  }
+  if(m.includes('air filter')){
+    const p=PARTS.find(x=>x.name.toLowerCase().includes('air filter'));
+    return `✅ Air Filter available hai!\n\nPart: ${p.name}\nVehicles: ${p.vehicles}\nStock: ${p.qty} pcs\nPrice: ${p.price}\n\nBooking: 📞 084069 54050`;
+  }
+  if(m.includes('brake')){
+    const p=PARTS.find(x=>x.name.toLowerCase().includes('brake'));
+    return `✅ Brake Pad available hai!\n\nPart: ${p.name}\nVehicles: ${p.vehicles}\nStock: ${p.qty} sets\nPrice: ${p.price}\n\nBooking: 📞 084069 54050`;
+  }
+  if(m.includes('battery')){
+    const p=PARTS.find(x=>x.name.toLowerCase().includes('battery'));
+    return `✅ Battery available hai!\n\nPart: ${p.name}\nStock: ${p.qty} pcs\nPrice: ${p.price}\n\nBooking: 📞 084069 54050`;
+  }
+  if(m.includes('spare') || m.includes('parts') || m.includes('purza') || m.includes('price')){
+    let r=`✅ Available Spare Parts:\n\n`;
+    PARTS.forEach(p=>{ r+=`• ${p.name} — ${p.price} (${p.qty} pcs)\n`; });
+    r+=`\nSab Tata Genuine Parts hain!\nCall: 📞 084069 54050`;
+    return r;
+  }
+  if(m.includes('order')){
+    return `Part order karne ke liye:\n📞 084069 54050\n\nHum Tata genuine parts mangwa sakte hain — 2-3 din mein delivery!`;
+  }
+  if(m.includes('genuine')){
+    return `Haan! ✅ Hum sirf Tata Genuine Spare Parts use karte hain.\n\nQuality guaranteed — koi duplicate parts nahi!`;
+  }
+  if(m.includes('book') || m.includes('appointment')){
+    return `Service booking ke liye:\n📞 084069 54050\n\n📍 C2WJ+MX6, Begusarai, Bihar 851115\n⏰ 9 AM - 6 PM\n👨 Staff 24/7 available`;
+  }
+  if(m.includes('ac') || m.includes('cooling')){
+    return `AC Service available hai! ❄️\n\nCabin cooling aur refrigeration unit dono.\n\nBooking: 📞 084069 54050`;
+  }
+  if(m.includes('engine')){
+    return `Engine checkup & repair available hai! 🔧\n\nTata certified mechanics karte hain.\n\nBooking: 📞 084069 54050`;
+  }
+  if(m.includes('brake') && m.includes('service')){
+    return `Brake Service available hai! ✅\n\nInspection + pad replacement + bleeding sab hota hai.\n\nBooking: 📞 084069 54050`;
+  }
+  if(m.includes('charge') || m.includes('kitna') || m.includes('cost')){
+    return `Service charges vehicle model aur kaam ke hisaab se alag hote hain.\n\nSahi estimate ke liye:\n📞 084069 54050\n\nKoi hidden charge nahi! ✅`;
+  }
+  if(m.includes('time') || m.includes('lagega')){
+    return `Service time:\n\n🔧 Regular service: 2-4 ghante\n🔧 Major repair: 1-2 din\n🔧 Body work: 3-7 din\n\nSahi time: 📞 084069 54050`;
+  }
+  if(m.includes('ace')){
+    let r=`Tata Ace Series (BS6):\n\n`;
+    VEHICLES.scv.forEach(v=>{ r+=`🚛 ${v.name}\n   ${v.payload} | ${v.engine} | ${v.bs} | ${v.price}\n\n`; });
+    return r;
+  }
+  if(m.includes('407') || m.includes('lcv') || m.includes('ultra')){
+    let r=`Tata 407 / LCV Series (BS6):\n\n`;
+    VEHICLES.lcv.forEach(v=>{ r+=`🚛 ${v.name}\n   ${v.payload} | ${v.engine} | ${v.bs} | ${v.price}\n\n`; });
+    return r;
+  }
+  if(m.includes('pickup') || m.includes('yodha')){
+    let r=`Tata Pickup Series:\n\n`;
+    VEHICLES.pickup.forEach(v=>{ r+=`🚛 ${v.name}\n   ${v.payload} | ${v.engine} | ${v.bs} | ${v.price}\n\n`; });
+    return r;
+  }
+  if(m.includes('prima') || m.includes('signa') || m.includes('heavy')){
+    let r=`Tata M&HCV Series (BS6):\n\n`;
+    VEHICLES.mhcv.forEach(v=>{ r+=`🚛 ${v.name}\n   ${v.payload} | ${v.engine} | ${v.bs}\n\n`; });
+    return r;
+  }
+  if(m.includes('tipper')){
+    let r=`Tata Tipper Series (BS6):\n\n`;
+    VEHICLES.tipper.forEach(v=>{ r+=`🚛 ${v.name}\n   ${v.payload} | ${v.engine} | ${v.bs}\n\n`; });
+    return r;
+  }
+  if(m.includes('bs6') || m.includes('vehicle') || m.includes('gaadi')){
+    return `Hum in Tata vehicles ki service karte hain:\n\n📦 SCV/Mini — Ace, Intra series\n🚐 Pickup — Yodha series\n🚛 LCV — 407, Ultra series\n💪 M&HCV — Signa, Prima series\n🏗️ Tipper — Signa, Prima\n\nSab BS4 & BS6 vehicles! Kisi bhi vehicle ke baare mein poochein.`;
+  }
+  if(m.includes('location') || m.includes('address') || m.includes('kahan')){
+    return `📍 Hamara address:\nC2WJ+MX6, Begusarai\nBihar 851115\n\nBegusarai mein Tata ka sabse bharosemand service center!`;
+  }
+  if(m.includes('contact') || m.includes('number') || m.includes('phone') || m.includes('call')){
+    return `📞 084069 54050\n\nEmergency mein bhi call kar sakte hain — staff 24/7 available hai!`;
+  }
+  if(m.includes('timing') || m.includes('kab') || m.includes('open')){
+    return `⏰ Service: 9 AM - 6 PM\n👨 Staff: 24/7 available\n📅 Saat din open — koi holiday nahi!`;
+  }
+  if(m.includes('emergency')){
+    return `Emergency service ke liye:\n📞 084069 54050\n\nHamara staff 24/7 available hai — raat ko bhi call kar sakte hain!`;
+  }
+  if(m.includes('rating') || m.includes('review')){
+    return `⭐ 4.5 / 5 Stars\n📊 30 Google Reviews\n\nAapka bharosa hi hamari sabse badi taakat hai! 🙏`;
+  }
+  if(m.includes('authorised') || m.includes('authorized') || m.includes('tata')){
+    return `Haan! ✅ Hum Tata Motors ke Authorised Service Station hain.\n\n• Tata certified mechanics\n• Genuine spare parts\n• Standard service protocols\n• Warranty valid service`;
+  }
+  if(m.includes('hello') || m.includes('hi') || m.includes('namaste') || m.includes('helo')){
+    return `Namaste! 🙏 Radha Swami Automobiles mein aapka swagat hai!\n\nMain Tata commercial vehicles ki service, parts aur booking mein madad kar sakta hoon.\n\nKya chahiye aapko?`;
+  }
+  if(m.includes('thank') || m.includes('shukriya') || m.includes('dhanyawad')){
+    return `Shukriya! 🙏 Aapki seva karna hamara farz hai.\n\nKoi bhi kaam ho — hum hamesha yahan hain!`;
+  }
+  return `Samajh gaya! Behtar madad ke liye seedha baat karein:\n📞 084069 54050\n📍 Begusarai, Bihar\n⏰ 9 AM - 6 PM\n\nNeeche se apna sawaal chunein ya seedha likhein.`;
+}
+
+function setTab(t,el){
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  el.classList.add('active');
+  const btns=document.getElementById('qbtns');
+  btns.innerHTML='';
+  TABS[t].forEach(q=>{
+    const b=document.createElement('button');
+    b.className='qb'; b.textContent=q;
+    b.onclick=()=>sendQ(q);
+    btns.appendChild(b);
+  });
+}
+function addMsg(text,type){
+  const box=document.getElementById('msgs');
+  const d=document.createElement('div');
+  d.className='msg '+type; d.textContent=text;
+  box.appendChild(d); box.scrollTop=box.scrollHeight;
+}
+function showTyping(){
+  const box=document.getElementById('msgs');
+  const d=document.createElement('div');
+  d.className='msg bot typ'; d.id='typ';
+  d.innerHTML='<span></span><span></span><span></span>';
+  box.appendChild(d); box.scrollTop=box.scrollHeight;
+}
+function removeTyping(){ const t=document.getElementById('typ'); if(t)t.remove(); }
+function sendQ(text){ addMsg(text,'usr'); showTyping(); setTimeout(()=>{ removeTyping(); addMsg(getBotReply(text),'bot'); },800); }
+function send(){
+  const inp=document.getElementById('inp');
+  const text=inp.value.trim(); if(!text)return;
+  inp.value=''; addMsg(text,'usr'); showTyping();
+  setTimeout(()=>{ removeTyping(); addMsg(getBotReply(text),'bot'); },900);
+}
+setTab('service', document.querySelector('.tab'));
+</script>
+</body>
+</html>
