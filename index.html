@@ -38,10 +38,10 @@
 <body>
 <div id="wrap">
   <div id="hdr">
-    <div class="av">RS</div>
+    <img src="tata-motors-logo.svg" style="width:42px;height:42px;border-radius:50%;background:#fff;object-fit:contain;padding:4px;flex-shrink:0;"/>
     <div>
       <div class="nm">Radha Swami Automobiles</div>
-      <div class="st">Tata Authorised Service Station — Begusarai ⭐ 4.5</div>
+      <div class="st">Tata Authorised Service — AI Assistant | Begusarai ⭐ 4.5</div>
     </div>
   </div>
   <div id="msgs">
@@ -66,7 +66,7 @@ Kya jaanna chahte hain?</div>
     <input id="inp" type="text" placeholder="Apna sawaal likhein..." onkeydown="if(event.key==='Enter')send()"/>
     <button id="sbtn" onclick="send()">&#10148;</button>
   </div>
-  <div id="footer">Powered by AI • Radha Swami Automobiles © 2025</div>
+  <div id="footer">Powered by AI Assistant • Radha Swami Automobiles © 2025</div>
 </div>
 
 <script>
@@ -79,23 +79,23 @@ const TABS = {
 
 const VEHICLES = {
   scv:[
-    {name:"Tata Ace Gold",payload:"750 kg",engine:"0.7L Diesel/Petrol",bs:"BS6",price:"₹3.50L+"},
-    {name:"Tata Ace Pro",payload:"750 kg",engine:"Petrol",bs:"BS6",price:"₹3.99L+"},
-    {name:"Tata Ace EV",payload:"750 kg",engine:"Electric",bs:"EV",price:"₹10L+"},
-    {name:"Tata Intra V10",payload:"1T",engine:"Diesel",bs:"BS6",price:"₹6.71L+"},
-    {name:"Tata Intra V30",payload:"1.5T",engine:"Diesel",bs:"BS6",price:"₹7.50L+"},
-    {name:"Tata Intra V50",payload:"2T",engine:"Diesel",bs:"BS6",price:"₹8.50L+"},
+    {name:"Tata Ace Gold",payload:"750 kg",engine:"0.7L Diesel/Petrol",bs:"BS6"},
+    {name:"Tata Ace Pro",payload:"750 kg",engine:"Petrol",bs:"BS6"},
+    {name:"Tata Ace EV",payload:"750 kg",engine:"Electric",bs:"EV"},
+    {name:"Tata Intra V10",payload:"1T",engine:"Diesel",bs:"BS6"},
+    {name:"Tata Intra V30",payload:"1.5T",engine:"Diesel",bs:"BS6"},
+    {name:"Tata Intra V50",payload:"2T",engine:"Diesel",bs:"BS6"},
   ],
   pickup:[
-    {name:"Tata Yodha 1700",payload:"1T",engine:"Diesel",bs:"BS6",price:"₹10.04L+"},
-    {name:"Tata Yodha 2.0",payload:"1.5T",engine:"Diesel/CNG",bs:"BS6",price:"₹11L+"},
-    {name:"Tata Xenon",payload:"1T",engine:"Diesel",bs:"BS4",price:"Older model"},
+    {name:"Tata Yodha 1700",payload:"1T",engine:"Diesel",bs:"BS6"},
+    {name:"Tata Yodha 2.0",payload:"1.5T",engine:"Diesel/CNG",bs:"BS6"},
+    {name:"Tata Xenon",payload:"1T",engine:"Diesel",bs:"BS4"},
   ],
   lcv:[
-    {name:"Tata 407 Gold",payload:"2.5T",engine:"Diesel",bs:"BS6",price:"₹10.14L+"},
-    {name:"Tata 407 Gold CNG",payload:"2.5T",engine:"CNG",bs:"BS6",price:"₹11L+"},
-    {name:"Tata Ultra 814",payload:"5T",engine:"Diesel",bs:"BS6",price:"₹15L+"},
-    {name:"Tata Ultra 912",payload:"7T",engine:"Diesel",bs:"BS6",price:"₹18L+"},
+    {name:"Tata 407 Gold",payload:"2.5T",engine:"Diesel",bs:"BS6"},
+    {name:"Tata 407 Gold CNG",payload:"2.5T",engine:"CNG",bs:"BS6"},
+    {name:"Tata Ultra 814",payload:"5T",engine:"Diesel",bs:"BS6"},
+    {name:"Tata Ultra 912",payload:"7T",engine:"Diesel",bs:"BS6"},
   ],
   mhcv:[
     {name:"Tata LPT 1412",payload:"8.3T",engine:"Diesel",bs:"BS6"},
@@ -113,16 +113,16 @@ const VEHICLES = {
 };
 
 const PARTS = [
-  {name:"Oil Filter",vehicles:"Ace, Intra, 407",qty:15,price:"₹450"},
-  {name:"Air Filter",vehicles:"407, Ultra, Signa",qty:8,price:"₹650"},
-  {name:"Brake Pad Set",vehicles:"Ace, Intra, Yodha",qty:12,price:"₹1,200"},
-  {name:"Clutch Plate",vehicles:"407, Ultra",qty:5,price:"₹3,500"},
-  {name:"Engine Oil 15W40 (5L)",vehicles:"All Diesel",qty:20,price:"₹1,100"},
-  {name:"Coolant",vehicles:"All vehicles",qty:18,price:"₹350"},
-  {name:"Fuel Filter",vehicles:"All Diesel",qty:10,price:"₹550"},
-  {name:"Wiper Blade",vehicles:"All vehicles",qty:25,price:"₹280"},
-  {name:"Battery 12V",vehicles:"All vehicles",qty:6,price:"₹5,500"},
-  {name:"Shock Absorber",vehicles:"Ace, Intra",qty:8,price:"₹2,200"},
+  {name:"Oil Filter",vehicles:"Ace, Intra, 407"},
+  {name:"Air Filter",vehicles:"407, Ultra, Signa"},
+  {name:"Brake Pad Set",vehicles:"Ace, Intra, Yodha"},
+  {name:"Clutch Plate",vehicles:"407, Ultra"},
+  {name:"Engine Oil 15W40 (5L)",vehicles:"All Diesel"},
+  {name:"Coolant",vehicles:"All vehicles"},
+  {name:"Fuel Filter",vehicles:"All Diesel"},
+  {name:"Wiper Blade",vehicles:"All vehicles"},
+  {name:"Battery 12V",vehicles:"All vehicles"},
+  {name:"Shock Absorber",vehicles:"Ace, Intra"},
 ];
 
 function getBotReply(msg){
@@ -148,6 +148,12 @@ function getBotReply(msg){
     PARTS.forEach(p=>{ r+=`• ${p.name} — ${p.price} (${p.qty} pcs)\n`; });
     r+=`\nSab Tata Genuine Parts hain!\nCall: 📞 084069 54050`;
     return r;
+  }
+  if(m.includes('discount') || m.includes('offer') || m.includes('concession') || m.includes('chhut')){
+    return `Discount aur special offers ke liye seedha call karein:
+📞 084069 54050
+
+Hamari team aapko best deal degi! 😊`;
   }
   if(m.includes('order')){
     return `Part order karne ke liye:\n📞 084069 54050\n\nHum Tata genuine parts mangwa sakte hain — 2-3 din mein delivery!`;
