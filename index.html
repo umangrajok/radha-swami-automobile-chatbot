@@ -4,64 +4,435 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Radha Swami Automobiles — Tata Authorised Service</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
 <style>
-  *{box-sizing:border-box;margin:0;padding:0;}
-  body{font-family:Arial,sans-serif;background:#E3F2FD;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:10px;}
-  #wrap{width:100%;max-width:420px;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.15);background:#fff;}
-  #hdr{background:#1565C0;padding:14px 16px;display:flex;align-items:center;gap:12px;}
-  #hdr .av{width:42px;height:42px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#1565C0;flex-shrink:0;}
-  #hdr .nm{color:#fff;font-weight:700;font-size:15px;}
-  #hdr .st{color:#90CAF9;font-size:11px;margin-top:2px;}
-  #msgs{height:360px;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;background:#F5F5F5;}
-  .msg{max-width:85%;padding:10px 14px;border-radius:18px;font-size:13.5px;line-height:1.6;white-space:pre-wrap;}
-  .bot{background:#fff;color:#222;border:1px solid #E0E0E0;border-bottom-left-radius:4px;align-self:flex-start;box-shadow:0 1px 3px rgba(0,0,0,0.08);}
-  .usr{background:#1565C0;color:#fff;border-bottom-right-radius:4px;align-self:flex-end;}
-  #tabs{display:flex;border-top:1px solid #E0E0E0;background:#fff;}
-  .tab{flex:1;padding:9px 4px;font-size:12px;text-align:center;cursor:pointer;color:#888;border-bottom:2px solid transparent;}
-  .tab.active{color:#1565C0;border-bottom:2px solid #1565C0;font-weight:700;}
-  #qbtns{display:flex;flex-wrap:wrap;gap:6px;padding:10px 13px;border-top:1px solid #F0F0F0;background:#fff;min-height:54px;}
-  .qb{font-size:11.5px;padding:5px 10px;border:1px solid #1565C0;border-radius:20px;color:#1565C0;background:#fff;cursor:pointer;}
-  .qb:hover{background:#E3F2FD;}
-  #inrow{display:flex;gap:8px;padding:10px 13px;border-top:1px solid #E0E0E0;background:#fff;}
-  #inp{flex:1;border:1px solid #BDBDBD;border-radius:22px;padding:9px 15px;font-size:13px;outline:none;background:#FAFAFA;}
-  #inp:focus{border-color:#1565C0;}
-  #sbtn{background:#1565C0;color:#fff;border:none;border-radius:50%;width:38px;height:38px;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-  #sbtn:hover{background:#0D47A1;}
-  .typ{display:flex;gap:4px;align-items:center;padding:10px 14px;}
-  .typ span{width:7px;height:7px;border-radius:50%;background:#BDBDBD;animation:bl 1.2s infinite;}
-  .typ span:nth-child(2){animation-delay:0.2s;}
-  .typ span:nth-child(3){animation-delay:0.4s;}
-  @keyframes bl{0%,80%,100%{opacity:0.3}40%{opacity:1}}
-  #footer{text-align:center;padding:8px;font-size:10px;color:#aaa;background:#fff;border-top:1px solid #F0F0F0;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{height:100%;}
 
-  body.dark{background:#1a1a2e;}
-  body.dark #wrap{background:#16213e;}
-  body.dark #msgs{background:#0f3460;}
-  body.dark .bot{background:#1a1a2e;color:#fff;border-color:#444;}
-  body.dark #tabs,body.dark #qbtns,body.dark #inrow,body.dark #footer{background:#16213e;}
-  body.dark .tab{color:#aaa;}
-  body.dark .tab.active{color:#90CAF9;}
-  body.dark #inp{background:#0f3460;color:#fff;border-color:#444;}
-  body.dark .qb{color:#90CAF9;border-color:#90CAF9;}
-  body.dark .qb:hover{background:#0f3460;}
-  body.dark #footer{color:#777;}
+:root{
+  --blue:#00529B;
+  --blue-dark:#003d75;
+  --blue-light:#e8f1fb;
+  --blue-mid:#1a6db5;
+  --white:#FFFFFF;
+  --slate:#F8FAFC;
+  --slate2:#EEF2F7;
+  --text:#1a2540;
+  --text2:#4a5568;
+  --text3:#94a3b8;
+  --border:#e2e8f0;
+  --shadow-sm:0 1px 3px rgba(0,82,155,0.08),0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md:0 4px 16px rgba(0,82,155,0.12),0 2px 6px rgba(0,0,0,0.06);
+  --shadow-lg:0 10px 40px rgba(0,82,155,0.16),0 4px 12px rgba(0,0,0,0.08);
+  --radius:14px;
+  --radius-sm:8px;
+}
+
+body{
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#e8f1fb 0%,#f0f6ff 40%,#e8f4f8 100%);
+  min-height:100vh;
+  display:flex;justify-content:center;align-items:flex-start;
+  padding:20px 10px 100px;
+}
+
+/* ── MAIN WRAP ── */
+#wrap{
+  width:100%;max-width:480px;
+  border-radius:20px;overflow:hidden;
+  box-shadow:var(--shadow-lg);
+  background:var(--white);
+  position:relative;
+}
+
+/* ── HEADER ── */
+#hdr{
+  background:linear-gradient(135deg,var(--blue) 0%,var(--blue-mid) 100%);
+  padding:16px 18px 14px;
+  position:sticky;top:0;z-index:50;
+  backdrop-filter:blur(10px);
+}
+.hdr-top{display:flex;align-items:center;gap:12px;}
+.hdr-logo{
+  width:46px;height:46px;border-radius:12px;
+  background:#fff;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,0.15);
+  flex-shrink:0;overflow:hidden;font-weight:800;font-size:11px;
+  color:var(--blue);letter-spacing:0.5px;text-align:center;line-height:1.2;
+  padding:4px;
+}
+.hdr-logo img{width:100%;height:100%;object-fit:contain;}
+.hdr-info{flex:1;}
+.hdr-name{
+  color:#fff;font-weight:700;font-size:15px;
+  letter-spacing:0.3px;line-height:1.2;
+}
+.hdr-sub{
+  color:rgba(255,255,255,0.75);font-size:10.5px;
+  font-weight:400;margin-top:2px;
+}
+.hdr-right{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+
+/* Live status indicator */
+.live-pill{
+  display:flex;align-items:center;gap:5px;
+  background:rgba(255,255,255,0.15);
+  border:1px solid rgba(255,255,255,0.25);
+  border-radius:20px;padding:4px 10px;
+  backdrop-filter:blur(4px);
+}
+.live-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:#4ade80;
+  box-shadow:0 0 0 2px rgba(74,222,128,0.3);
+  animation:pulse 2s infinite;
+  flex-shrink:0;
+}
+@keyframes pulse{
+  0%,100%{box-shadow:0 0 0 2px rgba(74,222,128,0.3);}
+  50%{box-shadow:0 0 0 5px rgba(74,222,128,0.1);}
+}
+.live-txt{color:#fff;font-size:10px;font-weight:600;letter-spacing:0.5px;}
+
+#dmBtn{
+  background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);
+  border-radius:50%;width:34px;height:34px;cursor:pointer;font-size:15px;
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.2s;flex-shrink:0;
+}
+#dmBtn:hover{background:rgba(255,255,255,0.25);}
+
+/* Rating bar */
+.hdr-rating{
+  display:flex;align-items:center;gap:6px;
+  margin-top:10px;padding-top:10px;
+  border-top:1px solid rgba(255,255,255,0.15);
+}
+.stars{color:#fbbf24;font-size:11px;letter-spacing:1px;}
+.rating-txt{color:rgba(255,255,255,0.8);font-size:10.5px;}
+.rating-badge{
+  margin-left:auto;background:rgba(255,255,255,0.15);
+  border:1px solid rgba(255,255,255,0.25);
+  border-radius:6px;padding:2px 8px;
+  color:#fff;font-size:10px;font-weight:600;
+}
+
+/* ── ACTION BAR ── */
+#action-bar{
+  display:flex;gap:8px;padding:12px 14px;
+  background:linear-gradient(135deg,var(--blue-dark),var(--blue));
+  border-top:1px solid rgba(255,255,255,0.1);
+}
+.action-link{
+  flex:1;display:flex;align-items:center;justify-content:center;gap:5px;
+  padding:9px 8px;border-radius:10px;
+  font-size:12px;font-weight:600;text-decoration:none;
+  transition:all 0.2s;letter-spacing:0.2px;
+}
+.action-link.primary{
+  background:#fff;color:var(--blue);
+  box-shadow:0 2px 8px rgba(0,0,0,0.15);
+}
+.action-link.primary:hover{background:#f0f6ff;transform:translateY(-1px);}
+.action-link.ghost{
+  background:rgba(255,255,255,0.12);color:#fff;
+  border:1px solid rgba(255,255,255,0.25);
+}
+.action-link.ghost:hover{background:rgba(255,255,255,0.2);}
+.action-link.fb{background:#1877F2;color:#fff;}
+.action-link.fb:hover{background:#1560c0;}
+
+/* ── MESSAGES ── */
+#msgs{
+  height:360px;overflow-y:auto;
+  padding:16px 14px;
+  display:flex;flex-direction:column;gap:10px;
+  background:var(--slate);
+  scroll-behavior:smooth;
+}
+#msgs::-webkit-scrollbar{width:3px;}
+#msgs::-webkit-scrollbar-thumb{background:var(--blue-light);border-radius:2px;}
+
+/* Bot message */
+.msg.bot{
+  background:var(--white);
+  color:var(--text);
+  border-radius:4px 18px 18px 18px;
+  align-self:flex-start;max-width:86%;
+  padding:11px 14px;
+  font-size:13px;line-height:1.65;white-space:pre-wrap;
+  box-shadow:var(--shadow-sm);
+  border:1px solid var(--border);
+  position:relative;
+  animation:msgIn 0.25s ease;
+}
+.msg.bot::before{
+  content:'RS';
+  position:absolute;top:-10px;left:0;
+  width:22px;height:22px;border-radius:50%;
+  background:linear-gradient(135deg,var(--blue),var(--blue-mid));
+  color:#fff;font-size:7px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  border:2px solid #fff;
+  box-shadow:var(--shadow-sm);
+}
+
+/* User message */
+.msg.usr{
+  background:linear-gradient(135deg,var(--blue),var(--blue-mid));
+  color:#fff;
+  border-radius:18px 4px 18px 18px;
+  align-self:flex-end;max-width:82%;
+  padding:11px 14px;
+  font-size:13px;line-height:1.65;white-space:pre-wrap;
+  box-shadow:var(--shadow-md);
+  animation:msgIn 0.25s ease;
+}
+
+@keyframes msgIn{
+  from{opacity:0;transform:translateY(8px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* Typing indicator */
+.msg.bot.typ{
+  padding:14px 18px;
+  display:flex;align-items:center;gap:5px;
+}
+.typ span{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--blue-light);
+  border:1px solid var(--blue);
+  animation:bl 1.2s infinite;
+  display:inline-block;
+}
+.typ span:nth-child(2){animation-delay:0.2s;}
+.typ span:nth-child(3){animation-delay:0.4s;}
+@keyframes bl{0%,80%,100%{opacity:0.3;transform:scale(0.8);}40%{opacity:1;transform:scale(1.1);}}
+
+/* ── QUICK ACTION CARDS (shown when msgs empty) ── */
+#quick-cards{
+  display:none;
+  grid-template-columns:1fr 1fr;
+  gap:10px;padding:14px;
+  background:var(--slate);
+  border-top:1px solid var(--border);
+}
+#quick-cards.visible{display:grid;}
+.qcard{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--radius);padding:14px 12px;
+  cursor:pointer;text-align:center;
+  transition:all 0.2s cubic-bezier(.4,0,.2,1);
+  box-shadow:var(--shadow-sm);
+}
+.qcard:hover{
+  border-color:var(--blue);
+  box-shadow:var(--shadow-md);
+  transform:translateY(-2px);
+}
+.qcard-icon{font-size:26px;margin-bottom:6px;}
+.qcard-title{font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px;}
+.qcard-sub{font-size:10.5px;color:var(--text3);}
+
+/* ── TABS (segmented control style) ── */
+#tabs{
+  display:flex;
+  padding:10px 12px;
+  background:var(--white);
+  border-top:1px solid var(--border);
+  gap:6px;
+}
+.tab{
+  flex:1;padding:8px 4px;
+  font-size:11px;font-weight:600;
+  text-align:center;cursor:pointer;
+  color:var(--text3);
+  border-radius:20px;border:1.5px solid transparent;
+  transition:all 0.2s cubic-bezier(.4,0,.2,1);
+  background:var(--slate);
+  letter-spacing:0.2px;
+}
+.tab:hover{color:var(--blue);background:var(--blue-light);}
+.tab.active{
+  color:var(--white);
+  background:linear-gradient(135deg,var(--blue),var(--blue-mid));
+  border-color:transparent;
+  box-shadow:0 2px 8px rgba(0,82,155,0.25);
+}
+
+/* ── QUICK BUTTONS ── */
+#qbtns{
+  display:flex;flex-wrap:wrap;gap:6px;
+  padding:10px 12px;
+  background:var(--white);
+  border-top:1px solid var(--border);
+  min-height:52px;
+}
+.qb{
+  font-size:11.5px;font-weight:500;
+  padding:6px 12px;
+  border:1.5px solid var(--blue-light);
+  border-radius:20px;
+  color:var(--blue);background:var(--blue-light);
+  cursor:pointer;
+  transition:all 0.18s;letter-spacing:0.1px;
+  font-family:'Poppins',sans-serif;
+}
+.qb:hover{
+  background:var(--blue);color:#fff;
+  border-color:var(--blue);
+  transform:translateY(-1px);
+  box-shadow:0 2px 8px rgba(0,82,155,0.2);
+}
+
+/* ── INPUT ROW ── */
+#inrow{
+  display:flex;gap:8px;padding:10px 12px;
+  border-top:1px solid var(--border);
+  background:var(--white);
+  align-items:center;
+}
+#inp{
+  flex:1;
+  border:1.5px solid var(--border);
+  border-radius:24px;
+  padding:10px 16px;
+  font-size:13px;outline:none;
+  background:var(--slate);
+  color:var(--text);
+  font-family:'Poppins',sans-serif;
+  transition:all 0.2s;
+}
+#inp:focus{
+  border-color:var(--blue);
+  background:#fff;
+  box-shadow:0 0 0 3px rgba(0,82,155,0.08);
+}
+#inp::placeholder{color:var(--text3);}
+#sbtn{
+  background:linear-gradient(135deg,var(--blue),var(--blue-mid));
+  color:#fff;border:none;
+  border-radius:50%;width:42px;height:42px;
+  cursor:pointer;font-size:18px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  box-shadow:0 2px 10px rgba(0,82,155,0.3);
+  transition:all 0.2s;
+}
+#sbtn:hover{transform:scale(1.08);box-shadow:0 4px 16px rgba(0,82,155,0.4);}
+#sbtn:active{transform:scale(0.96);}
+
+/* ── FOOTER ── */
+#footer{
+  text-align:center;padding:10px;
+  font-size:10px;color:var(--text3);
+  background:var(--white);border-top:1px solid var(--border);
+  font-weight:400;letter-spacing:0.3px;
+}
+
+/* ── FLOATING CALL BUTTON ── */
+#fab{
+  position:fixed;bottom:28px;right:24px;
+  background:linear-gradient(135deg,#16a34a,#22c55e);
+  color:#fff;border-radius:50px;
+  padding:13px 20px;
+  display:flex;align-items:center;gap:8px;
+  text-decoration:none;font-family:'Poppins',sans-serif;
+  font-size:13px;font-weight:700;
+  box-shadow:0 4px 20px rgba(22,163,74,0.4);
+  z-index:999;
+  animation:fabPulse 2.5s infinite;
+  transition:all 0.2s;letter-spacing:0.3px;
+}
+#fab:hover{
+  transform:scale(1.05) translateY(-2px);
+  box-shadow:0 8px 30px rgba(22,163,74,0.5);
+  animation:none;
+}
+#fab-icon{font-size:16px;}
+@keyframes fabPulse{
+  0%,100%{box-shadow:0 4px 20px rgba(22,163,74,0.4),0 0 0 0 rgba(22,163,74,0.4);}
+  50%{box-shadow:0 4px 20px rgba(22,163,74,0.4),0 0 0 10px rgba(22,163,74,0);}
+}
+
+/* ── DARK MODE ── */
+body.dark{
+  background:linear-gradient(135deg,#0f1724 0%,#162033 100%);
+}
+body.dark #wrap{background:#1a2540;}
+body.dark #msgs{background:#111c30;}
+body.dark .msg.bot{
+  background:#1e2d45;color:#e2e8f0;
+  border-color:#2d3f5a;
+}
+body.dark .msg.usr{background:linear-gradient(135deg,#003d75,#00529B);}
+body.dark #tabs,body.dark #qbtns,body.dark #inrow,body.dark #footer{
+  background:#1a2540;border-color:#2d3f5a;
+}
+body.dark .tab{color:#64748b;background:#111c30;}
+body.dark .tab.active{
+  color:#fff;
+  background:linear-gradient(135deg,var(--blue),var(--blue-mid));
+}
+body.dark #inp{background:#111c30;color:#e2e8f0;border-color:#2d3f5a;}
+body.dark #inp:focus{border-color:var(--blue);background:#0f1724;}
+body.dark #inp::placeholder{color:#475569;}
+body.dark .qb{color:#93c5fd;background:#1e3a5f;border-color:#2d4f7c;}
+body.dark .qb:hover{background:var(--blue);color:#fff;}
+body.dark #footer{color:#475569;}
+body.dark .qcard{background:#1e2d45;border-color:#2d3f5a;}
+body.dark .qcard:hover{border-color:var(--blue);}
+body.dark .qcard-title{color:#e2e8f0;}
+body.dark #quick-cards{background:#111c30;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:520px){
+  body{padding:0 0 100px;}
+  #wrap{border-radius:0;max-width:100%;}
+  #msgs{height:calc(100vh - 380px);min-height:250px;}
+  #fab{bottom:20px;right:16px;padding:12px 18px;font-size:12px;}
+}
 </style>
 </head>
 <body>
+
 <div id="wrap">
+
+  <!-- HEADER -->
   <div id="hdr">
-    <img src="tata-motors-logo.svg" style="width:42px;height:42px;border-radius:50%;background:#fff;object-fit:contain;padding:4px;flex-shrink:0;"/>
-    <div style="flex:1;">
-      <div class="nm">Radha Swami Automobiles</div>
-      <div class="st">Tata Authorised Service — AI Assistant | Begusarai ⭐ 4.5</div>
+    <div class="hdr-top">
+      <div class="hdr-logo">
+        <img src="tata-motors-logo.svg" alt="Tata"
+             onerror="this.style.display='none';this.parentElement.innerHTML='<span style=\'font-size:10px;font-weight:800;color:#00529B;text-align:center;line-height:1.2;\'>TATA<br>MOTORS</span>'"/>
+      </div>
+      <div class="hdr-info">
+        <div class="hdr-name">Radha Swami Automobiles</div>
+        <div class="hdr-sub">Tata Authorised Service · Begusarai</div>
+      </div>
+      <div class="hdr-right">
+        <div class="live-pill">
+          <div class="live-dot"></div>
+          <span class="live-txt">LIVE</span>
+        </div>
+        <button onclick="toggleDark()" id="dmBtn">🌙</button>
+      </div>
     </div>
-    <button onclick="toggleDark()" id="dmBtn" style="background:rgba(255,255,255,0.2);border:none;border-radius:50%;width:34px;height:34px;cursor:pointer;font-size:16px;flex-shrink:0;">🌙</button>
+    <div class="hdr-rating">
+      <span class="stars">★★★★½</span>
+      <span class="rating-txt">4.5 · 30 Google Reviews</span>
+      <span class="rating-badge">✅ Authorised</span>
+    </div>
   </div>
-  <div style="display:flex;gap:8px;padding:10px 13px;background:#1565C0;border-top:1px solid rgba(255,255,255,0.2);">
-    <a href="tel:8406954050" style="flex:1;background:#fff;color:#1565C0;text-align:center;padding:8px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;">📞 Call Now</a>
-    <a href="https://maps.google.com/?q=C2WJ+MX6,+Begusarai,+Bihar+851115" target="_blank" style="flex:1;background:rgba(255,255,255,0.15);color:#fff;text-align:center;padding:8px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;border:1px solid rgba(255,255,255,0.4);">🗺️ Directions</a>
-    <a href="https://www.facebook.com/radha.swami.52206654" target="_blank" style="flex:1;background:#1877F2;color:#fff;text-align:center;padding:8px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;">👍 Facebook</a>
+
+  <!-- ACTION BAR -->
+  <div id="action-bar">
+    <a href="tel:8406954050" class="action-link primary">📞 Call Now</a>
+    <a href="https://maps.google.com/?q=C2WJ+MX6,+Begusarai,+Bihar+851115" target="_blank" class="action-link ghost">🗺️ Directions</a>
+    <a href="https://www.facebook.com/radha.swami.52206654" target="_blank" class="action-link fb">👍 Facebook</a>
   </div>
+
+  <!-- MESSAGES -->
   <div id="msgs">
     <div class="msg bot">Namaste! 🙏 Radha Swami Automobiles mein aapka swagat hai!
 
@@ -69,23 +440,61 @@ Main aapki madad kar sakta hoon:
 • Tata vehicle service booking
 • Spare parts availability
 • Vehicle information (Tata Commercial)
-• Location & contact
+• Location &amp; contact
 
 Kya jaanna chahte hain?</div>
   </div>
+
+  <!-- QUICK ACTION CARDS -->
+  <div id="quick-cards">
+    <div class="qcard" onclick="sendQ('Service booking karni hai')">
+      <div class="qcard-icon">🔧</div>
+      <div class="qcard-title">Book Service</div>
+      <div class="qcard-sub">Appointment lein</div>
+    </div>
+    <div class="qcard" onclick="sendQ('Spare parts price')">
+      <div class="qcard-icon">⚙️</div>
+      <div class="qcard-title">Spare Parts</div>
+      <div class="qcard-sub">Stock &amp; pricing</div>
+    </div>
+    <div class="qcard" onclick="sendQ('Location kahan hai')">
+      <div class="qcard-icon">📍</div>
+      <div class="qcard-title">Find Location</div>
+      <div class="qcard-sub">Begusarai showroom</div>
+    </div>
+    <div class="qcard" onclick="sendQ('Emergency service')">
+      <div class="qcard-icon">🚨</div>
+      <div class="qcard-title">Emergency</div>
+      <div class="qcard-sub">24/7 helpline</div>
+    </div>
+  </div>
+
+  <!-- TABS -->
   <div id="tabs">
     <div class="tab active" onclick="setTab('service',this)">🔧 Service</div>
     <div class="tab" onclick="setTab('vehicle',this)">🚛 Vehicles</div>
     <div class="tab" onclick="setTab('parts',this)">⚙️ Parts</div>
     <div class="tab" onclick="setTab('info',this)">📍 Info</div>
   </div>
+
+  <!-- QUICK BUTTONS -->
   <div id="qbtns"></div>
+
+  <!-- INPUT ROW -->
   <div id="inrow">
     <input id="inp" type="text" placeholder="Apna sawaal likhein..." onkeydown="if(event.key==='Enter')send()"/>
     <button id="sbtn" onclick="send()">&#10148;</button>
   </div>
-  <div id="footer">Powered by AI Assistant • Radha Swami Automobiles © 2025</div>
+
+  <!-- FOOTER -->
+  <div id="footer">Powered by AI Assistant &nbsp;•&nbsp; Radha Swami Automobiles © 2025</div>
 </div>
+
+<!-- FLOATING CALL BUTTON -->
+<a href="tel:8406954050" id="fab">
+  <span id="fab-icon">📞</span>
+  <span>Call Now</span>
+</a>
 
 <script>
 const TABS = {
@@ -145,33 +554,30 @@ const PARTS = [
 
 function getBotReply(msg){
   const m=msg.toLowerCase();
-  if(m.includes('oil filter')||m.includes('oil change')||m.includes('tel')){
+  if(m.includes('oil filter')){
     const p=PARTS.find(x=>x.name.toLowerCase().includes('oil filter'));
-    return `✅ Oil Filter available hai!\n\nPart: ${p.name}\nVehicles: ${p.vehicles}\nStock: ${p.qty} pcs\nPrice: ${p.price}\n\nBooking: 📞 8406954050`;
+    return `✅ Oil Filter available hai!\n\nPart: ${p.name}\nVehicles: ${p.vehicles}\n\nBooking: 📞 8406954050`;
   }
   if(m.includes('air filter')){
     const p=PARTS.find(x=>x.name.toLowerCase().includes('air filter'));
-    return `✅ Air Filter available hai!\n\nPart: ${p.name}\nVehicles: ${p.vehicles}\nStock: ${p.qty} pcs\nPrice: ${p.price}\n\nBooking: 📞 8406954050`;
+    return `✅ Air Filter available hai!\n\nPart: ${p.name}\nVehicles: ${p.vehicles}\n\nBooking: 📞 8406954050`;
   }
   if(m.includes('brake')){
     const p=PARTS.find(x=>x.name.toLowerCase().includes('brake'));
-    return `✅ Brake Pad available hai!\n\nPart: ${p.name}\nVehicles: ${p.vehicles}\nStock: ${p.qty} sets\nPrice: ${p.price}\n\nBooking: 📞 8406954050`;
+    return `✅ Brake Pad available hai!\n\nPart: ${p.name}\nVehicles: ${p.vehicles}\n\nBooking: 📞 8406954050`;
   }
   if(m.includes('battery')){
     const p=PARTS.find(x=>x.name.toLowerCase().includes('battery'));
-    return `✅ Battery available hai!\n\nPart: ${p.name}\nStock: ${p.qty} pcs\nPrice: ${p.price}\n\nBooking: 📞 8406954050`;
+    return `✅ Battery available hai!\n\nPart: ${p.name}\n\nBooking: 📞 8406954050`;
   }
   if(m.includes('spare') || m.includes('parts') || m.includes('purza') || m.includes('price')){
     let r=`✅ Available Spare Parts:\n\n`;
-    PARTS.forEach(p=>{ r+=`• ${p.name} — ${p.price} (${p.qty} pcs)\n`; });
+    PARTS.forEach(p=>{ r+=`• ${p.name}\n`; });
     r+=`\nSab Tata Genuine Parts hain!\nCall: 📞 8406954050`;
     return r;
   }
   if(m.includes('discount') || m.includes('offer') || m.includes('concession') || m.includes('chhut')){
-    return `Discount aur special offers ke liye seedha call karein:
-📞 8406954050
-
-Hamari team aapko best deal degi! 😊`;
+    return `Discount aur special offers ke liye seedha call karein:\n📞 8406954050\n\nHamari team aapko best deal degi! 😊`;
   }
   if(m.includes('order')){
     return `Part order karne ke liye:\n📞 8406954050\n\nHum Tata genuine parts mangwa sakte hain — 2-3 din mein delivery!`;
@@ -188,9 +594,6 @@ Hamari team aapko best deal degi! 😊`;
   if(m.includes('engine')){
     return `Engine checkup & repair available hai! 🔧\n\nTata certified mechanics karte hain.\n\nBooking: 📞 8406954050`;
   }
-  if(m.includes('brake') && m.includes('service')){
-    return `Brake Service available hai! ✅\n\nInspection + pad replacement + bleeding sab hota hai.\n\nBooking: 📞 8406954050`;
-  }
   if(m.includes('charge') || m.includes('kitna') || m.includes('cost')){
     return `Service charges vehicle model aur kaam ke hisaab se alag hote hain.\n\nSahi estimate ke liye:\n📞 8406954050\n\nKoi hidden charge nahi! ✅`;
   }
@@ -199,27 +602,27 @@ Hamari team aapko best deal degi! 😊`;
   }
   if(m.includes('ace')){
     let r=`Tata Ace Series (BS6):\n\n`;
-    VEHICLES.scv.forEach(v=>{ r+=`🚛 ${v.name}\n   ${v.payload} | ${v.engine} | ${v.bs} | ${v.price}\n\n`; });
+    VEHICLES.scv.forEach(v=>{ r+=`🚛 ${v.name}\n   ${v.payload} | ${v.engine}\n\n`; });
     return r;
   }
   if(m.includes('407') || m.includes('lcv') || m.includes('ultra')){
     let r=`Tata 407 / LCV Series (BS6):\n\n`;
-    VEHICLES.lcv.forEach(v=>{ r+=`🚛 ${v.name}\n   ${v.payload} | ${v.engine} | ${v.bs} | ${v.price}\n\n`; });
+    VEHICLES.lcv.forEach(v=>{ r+=`🚛 ${v.name}\n   ${v.payload} | ${v.engine}\n\n`; });
     return r;
   }
   if(m.includes('pickup') || m.includes('yodha')){
     let r=`Tata Pickup Series:\n\n`;
-    VEHICLES.pickup.forEach(v=>{ r+=`🚛 ${v.name}\n   ${v.payload} | ${v.engine} | ${v.bs} | ${v.price}\n\n`; });
+    VEHICLES.pickup.forEach(v=>{ r+=`🚛 ${v.name}\n   ${v.payload} | ${v.engine}\n\n`; });
     return r;
   }
   if(m.includes('prima') || m.includes('signa') || m.includes('heavy')){
     let r=`Tata M&HCV Series (BS6):\n\n`;
-    VEHICLES.mhcv.forEach(v=>{ r+=`🚛 ${v.name}\n   ${v.payload} | ${v.engine} | ${v.bs}\n\n`; });
+    VEHICLES.mhcv.forEach(v=>{ r+=`🚛 ${v.name}\n   ${v.payload} | ${v.engine}\n\n`; });
     return r;
   }
   if(m.includes('tipper')){
     let r=`Tata Tipper Series (BS6):\n\n`;
-    VEHICLES.tipper.forEach(v=>{ r+=`🚛 ${v.name}\n   ${v.payload} | ${v.engine} | ${v.bs}\n\n`; });
+    VEHICLES.tipper.forEach(v=>{ r+=`🚛 ${v.name}\n   ${v.payload} | ${v.engine}\n\n`; });
     return r;
   }
   if(m.includes('bs6') || m.includes('vehicle') || m.includes('gaadi')){
@@ -263,6 +666,10 @@ function setTab(t,el){
     b.onclick=()=>sendQ(q);
     btns.appendChild(b);
   });
+  // Show quick cards on Info tab
+  const cards=document.getElementById('quick-cards');
+  if(t==='info') cards.classList.add('visible');
+  else cards.classList.remove('visible');
 }
 function addMsg(text,type){
   const box=document.getElementById('msgs');
@@ -293,4 +700,3 @@ function toggleDark(){
 </script>
 </body>
 </html>
-
